@@ -5,27 +5,48 @@ function App() {
   const [apiStatus, setApiStatus] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // For GitHub Pages demo - use mock data instead of real API
   const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const isGitHubPages = window.location.hostname.includes('github.io');
 
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE_URL}/api/users`);
-      const data = await response.json();
-      setUsers(data);
-      setApiStatus('Kết nối thành công!');
+      if (isGitHubPages) {
+        // Mock data for GitHub Pages demo
+        setTimeout(() => {
+          const mockUsers = [
+            { id: 1, name: 'Nguyễn Văn A', email: 'a@example.com' },
+            { id: 2, name: 'Trần Thị B', email: 'b@example.com' },
+            { id: 3, name: 'Lê Văn C', email: 'c@example.com' }
+          ];
+          setUsers(mockUsers);
+          setApiStatus('Demo với dữ liệu mẫu (GitHub Pages)');
+          setLoading(false);
+        }, 1000);
+      } else {
+        const response = await fetch(`${API_BASE_URL}/api/users`);
+        const data = await response.json();
+        setUsers(data);
+        setApiStatus('Kết nối thành công!');
+        setLoading(false);
+      }
     } catch (error) {
       console.error('Lỗi khi gọi API:', error);
       setApiStatus('Lỗi kết nối API');
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const checkHealth = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/health`);
-      const data = await response.json();
-      setApiStatus(`API Status: ${data.status} - Uptime: ${Math.floor(data.uptime)}s`);
+      if (isGitHubPages) {
+        setApiStatus('Demo Mode - GitHub Pages (Không có backend thật)');
+      } else {
+        const response = await fetch(`${API_BASE_URL}/api/health`);
+        const data = await response.json();
+        setApiStatus(`API Status: ${data.status} - Uptime: ${Math.floor(data.uptime)}s`);
+      }
     } catch (error) {
       setApiStatus('API không khả dụng');
     }
