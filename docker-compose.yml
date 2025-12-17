@@ -1,6 +1,35 @@
 version: '3.8'
 
 services:
+  # MySQL Database Service
+  mysql:
+    image: mysql:5
+    container_name: mysql-db
+    ports:
+      - "3309:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123
+      - MYSQL_DATABASE=testdb
+    networks:
+      - app-network
+    restart: unless-stopped
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  # PHP 5.6 Application Service
+  php-app:
+    build:
+      context: ./php-app
+      dockerfile: Dockerfile
+    container_name: php-app
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
+    depends_on:
+      - mysql
+    restart: unless-stopped
+
   # Backend API Service
   backend:
     build: 
@@ -41,7 +70,5 @@ networks:
   app-network:
     driver: bridge
 
-# Optional: Add volumes for development
-# volumes:
-#   node_modules_backend:
-#   node_modules_frontend:
+volumes:
+  mysql-data:
