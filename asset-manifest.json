@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/Docker/static/js/main.a0b37e1c.js",
-    "index.html": "/Docker/index.html",
-    "main.a0b37e1c.js.map": "/Docker/static/js/main.a0b37e1c.js.map"
+    "main.js": "/static/js/main.45365d70.js",
+    "index.html": "/index.html",
+    "main.45365d70.js.map": "/static/js/main.45365d70.js.map"
   },
   "entrypoints": [
-    "static/js/main.a0b37e1c.js"
+    "static/js/main.45365d70.js"
   ]
 }
