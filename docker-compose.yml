@@ -1,15 +1,16 @@
 version: '3.8'
 
 services:
-  # MySQL Database Service
+  # MySQL Database Service (using MariaDB 5.5 - compatible with MySQL 5)
   mysql:
-    image: mysql:5
+    image: mariadb:5.5
     container_name: mysql-db
     ports:
       - "3309:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=root123
       - MYSQL_DATABASE=testdb
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     networks:
       - app-network
     restart: unless-stopped
