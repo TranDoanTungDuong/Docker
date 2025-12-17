@@ -6,11 +6,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:gh": "PUBLIC_URL=/Docker react-scripts build",
     "serve": "serve -s build -l 3000",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build:gh",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://trandoantungduong.github.io/Docker",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
